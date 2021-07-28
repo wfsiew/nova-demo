@@ -1,0 +1,86 @@
+.main-hd {
+  background: #1b548a;
+}
+
+.hd {
+  height: 150px;
+  color: #ffffff;
+}
+
+.hd h1 {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 600;
+  line-height: 50px;
+  letter-spacing: 0.05px;
+}
+
+.hd p {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0.05px;
+}
+
+.line-hd {
+  background: #eb0323;
+  width: 200px;
+  height: 3.19px;
+}
+
+.btn-details {
+  background: #1260a0;
+  color: #ffffff;
+  font-size: 9pt;
+}
+
+.btn-make-appointment {
+  background: #eb0323;
+  color: #ffffff;
+  font-size: 9pt;
+}
+
+.doctor-card {
+  box-shadow: 0px 0px 8px 0px #E7E7E7A6;
+  min-height: 350px;
+}
+
+.doctor-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  text-align: center;
+}
+
+.doctor-name {
+  font-family: "Lato";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: center;
+  color: #4299e1;
+}
+
+.doctor-speciality {
+  font-family: "Lato";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: center;
+  color: #b1b1b1;
+}
+
+.doctor-speciality-text {
+  font-family: 'Lato';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: center;
+  color: #6C757D;
+}

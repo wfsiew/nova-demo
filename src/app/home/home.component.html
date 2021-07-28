@@ -1,0 +1,55 @@
+<div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
+  <div class="container d-flex">
+    <div class="contact-info mr-auto">
+      <h1 class="logo mr-auto"><a href="#"><img src="../../assets/img/logo.png"></a></h1>
+    </div>
+  </div>
+</div>
+
+<section class="d-flex align-items-center main-hd">
+  <div class="container hd">
+    <h1>Our Doctor</h1>
+    <p>Our find a doctor tool assists you in choosing from our diverse pool of health specialists Discover better health and wellness by using our doctor ratings and reviews to make your choice. We are dedicated to being the preferred provider of care, with innovative use of technology, experienced doctors and well-trained staff who collaborate to offer the best diagnosis and treatment plans.</p>
+  </div>
+</section>
+
+<section id="doctors" class="doctors">
+  <div class="container">
+
+    <div class="section-title">
+      <h2>Doctors</h2>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let o of list">
+        <div class="card text-center doctor-card" style="width: 18rem;">
+          <div class="text-center mt-4">
+            <img class="img-fluid rounded-circle doctor-img" [src]="getImage(o)" alt="Card image cap">
+          </div>
+          
+          <div class="card-body">
+            <h5 class="card-title doctor-name">{{ o.name }}</h5>
+            <h6 class="mt-3 doctor-speciality">Speciality</h6>
+            <p class="doctor-speciality-text" *ngFor="let s of o.doctorSpecialities">{{ s.specialities }}</p>
+            <button type="button" class="btn btn-light btn-details">Doctor Details</button>
+            <button type="button" class="btn btn-light btn-make-appointment">Make Appointment</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="totalCount" [ngClass]="{'d-none': isLoading}">
+      <div class="float-left pg-label">
+        Page {{ page }} / {{ totalPage }} of {{ totalCount }} record(s)
+      </div>
+      <div class="float-right">
+        <pagination 
+          [totalItems]="totalCount" 
+          [itemsPerPage]="pageSize" 
+          [maxSize]="MAX_PAGE_NUMBERS" 
+          [(ngModel)]="page" 
+          (pageChanged)="pageChanged($event)"></pagination>
+      </div>
+    </div>
+  </div>
+</section>
