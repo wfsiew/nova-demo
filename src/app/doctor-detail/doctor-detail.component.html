@@ -1,0 +1,72 @@
+<div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
+  <div class="container d-flex">
+    <div class="contact-info mr-auto">
+      <h1 class="logo mr-auto"><a href="#"><img src="../../assets/img/logo.png"></a></h1>
+    </div>
+  </div>
+</div>
+
+<section class="d-flex align-items-center main-hd">
+  <div class="container hd">
+    <h1>Our Doctor</h1>
+    <p>Our find a doctor tool assists you in choosing from our diverse pool of health specialists Discover better health and wellness by using our doctor ratings and reviews to make your choice. We are dedicated to being the preferred provider of care, with innovative use of technology, experienced doctors and well-trained staff who collaborate to offer the best diagnosis and treatment plans.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container" *ngIf="!isLoading">
+    <div class="d-flex align-items-start">
+      <div>
+        <img [src]="getImage()" class="doctor-img img-fluid" alt="User Image">
+      </div>
+      <div class="container-info">
+        <h3 class="doctor-name mb-4">{{ data.name }}</h3>
+        
+        <button type="button" class="btn btn-light btn-make-appointment">Make Appointment</button>
+
+        <ng-container *ngIf="data.doctorSpecialities && data.doctorSpecialities.length > 0">
+          <div class="title-hd mb-2 mt-4">Specialities</div>
+          <div class="title-text" *ngFor="let s of data.doctorSpecialities">{{ s.specialities }}</div>
+        </ng-container>
+        
+        <ng-container *ngIf="data.doctorClinicLocation && data.doctorClinicLocation.length > 0">
+          <div class="title-hd mb-2 mt-4">Suite No./Floor</div>
+          <div class="title-text" *ngFor="let s of data.doctorClinicLocation">{{ s.location }}</div>
+        </ng-container>
+
+        <ng-container *ngIf="data.doctorSpokenLanguage && data.doctorSpokenLanguage.length > 0">
+          <div class="title-hd mb-2 mt-4">Languages Spoken</div>
+          <div class="title-text">{{ getSpokenLanguage() }}</div>
+        </ng-container>
+        
+        <ng-container *ngIf="data.doctorQualifications && data.doctorQualifications.length > 0">
+          <div class="title-hd mb-2 mt-4">Qualifications</div>
+          <ul style="margin-left: -22px">
+            <li class="title-text" *ngFor="let s of data.doctorQualifications">{{ s.qualification }}</li>
+          </ul>
+        </ng-container>
+        
+        <ng-container *ngIf="data.doctorClinicHours && data.doctorClinicHours.length > 0">
+            <div class="title-hd mb-2 mt-4">Clinic Hours</div>
+            <div class="row clinic-hour-hd">
+              <div class="col-md-10">
+                Visiting Hours
+              </div>
+            </div>
+            <div class="row" style="height: 10px;">
+              <div class="col-md-2" style="margin-right: 40px;"></div>
+              <div class="col-md-8" style="border-left: 1px solid #E5E5E5;"></div>
+            </div>
+            <div class="row clinic-hour-text" *ngFor="let s of data.doctorClinicHours">
+              <div class="col-md-2 text-center" style="margin-right: 40px;">
+                {{ s.dayOfTheWeek }}
+              </div>
+              <div class="col-md-8" style="border-left: 1px solid #E5E5E5; padding-left: 40px;">
+                {{ getClinicHour(s) }}
+              </div>
+            </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</section>

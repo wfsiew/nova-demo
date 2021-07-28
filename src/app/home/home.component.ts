@@ -113,4 +113,16 @@ export class HomeComponent implements OnInit {
     this.page = event.page;
     this.load();
   }
+
+  goto(s: string) {
+    this.msService.send(this.uiState, {
+      page: this.page,
+      sort: this.sort,
+      dir: this.sortDir,
+      search: this.search,
+      sx: window.scrollX,
+      sy: window.scrollY
+    });
+    this.router.navigate([`/main/doctor/${s}`]);
+  }
 }

@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { IndexComponent } from './index/index.component';
+import { DoctorDetailComponent } from './doctor-detail/doctor-detail.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent
+      },
+      {
+        path: 'doctor/:mcr',
+        component: DoctorDetailComponent
       }
     ]
   },

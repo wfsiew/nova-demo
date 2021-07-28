@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
 import { HomeComponent } from './home/home.component';
+import { DoctorDetailComponent } from './doctor-detail/doctor-detail.component';
 
 import { MessageService } from './services/message.service';
 import { DoctorService } from './services/doctor.service';
@@ -22,7 +23,8 @@ import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
   declarations: [
     AppComponent,
     HomeComponent,
-    IndexComponent
+    IndexComponent,
+    DoctorDetailComponent
   ],
   imports: [
     BrowserModule,

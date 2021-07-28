@@ -38,4 +38,8 @@ export class DoctorService {
     }
     return this.http.post(`${this.baseUrl}/public/vesalius/getAllDoctorInformation/1`, { keyword: keyword }, { params: prm, observe: 'response' });
   }
+
+  getDoctorDetails(branchId: number, mcr: string) {
+    return this.http.get(`${this.baseUrl}/public/vesalius/getDoctorInformationByMCR/${branchId}/${mcr}`);
+  }
 }
