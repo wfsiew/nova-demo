@@ -11,6 +11,7 @@ import { GeneralForm } from '../shared/classes/general.form';
 import { AppConstant } from '../shared/constants/app.constant';
 import { Document, NovaDoctor, NovaDoctorSpecialty, Patient } from '../shared/models';
 import { Helper } from '../shared/utils/helper';
+const moment = require('moment');
 
 @Component({
   selector: 'app-make-appointment',
@@ -19,9 +20,13 @@ import { Helper } from '../shared/utils/helper';
 })
 export class MakeAppointmentComponent extends GeneralForm implements OnInit, OnDestroy {
 
+  isLoading = false;
   pState: any;
   data: any;
   specialty!: NovaDoctorSpecialty | undefined;
+  selectedDate!: Date;
+  selectedTime!: Date;
+  minDate!: Date;
   subs: Subscription;
 
   readonly uiState = 'appointment.make-appointment';
@@ -36,16 +41,13 @@ export class MakeAppointmentComponent extends GeneralForm implements OnInit, OnD
     private loc: Location
   ) {
     super();
+    this.setMinDate()
     this.createForm();
     this.subs = this.msService.get().subscribe(res => {
       if (res.name === this.uiState) {
         const o = res.data;
-        this.data = {
-          patient: o.patient,
-          doctor: o.doctor
-        }
+        this.data = o;
         this.pState = o;
-        console.log(o)
       }
     });
   }
@@ -65,8 +67,7 @@ export class MakeAppointmentComponent extends GeneralForm implements OnInit, OnD
       specialtyCode: [''],
       specialtyName: [''],
       caseType: ['NC', [Validators.required]],
-      date: [''],
-      time: [''],
+      selectedDate: [''],
       patientName: [''],
       patientNRIC: [''],
       patientDOB: [''],
@@ -75,6 +76,7 @@ export class MakeAppointmentComponent extends GeneralForm implements OnInit, OnD
   }
 
   load() {
+    if (!this.data) return;
     const a: Patient = this.data.patient;
     const b: NovaDoctor = this.data.doctor;
     const name = a.name;
@@ -107,12 +109,68 @@ export class MakeAppointmentComponent extends GeneralForm implements OnInit, OnD
     });
   }
 
+  onDateChange(val: Date) {
+    this.selectedDate = val;
+  }
+
   onBack() {
     this.msService.send('doctor.doctor-listing', this.pState);
     this.router.navigate(['/main/home']);
   }
 
   onSubmit() {
+    if (this.mform.invalid) {
+      this.mform.markAllAsTouched();
+      return;
+    }
 
+    let dt = moment(this.selectedDate).format('DD-MMM-YYYY');
+    let dx = moment(this.selectedTime).format('HH:mm');
+
+    const f = this.mform.value;
+    const o: any = {
+      caseType: f.caseType,
+      mcr: f.doctorMcr,
+      specialtyCode: f.specialtyCode,
+      startDate: dt,
+      startTime: dx
+    }
+
+    this.isLoading = true;
+    this.appService.getVesaliusNextAvailableSlot(1, f.prn, o).subscribe((res: any) => {
+      let slots = res;
+      this.isLoading = false;
+      if (Helper.isEmpty(slots)) {
+        this.toastr.error('There is no available slot on your request date / time.');
+      }
+
+      else {
+        this.msService.send('appointment.appointment-slot', {
+          slots: slots,
+          pState: this.pState,
+          submitData: o
+        });
+        this.router.navigate([`main/appointment/slots`])
+      }
+    }, (error) => {
+      this.isLoading = false;
+      this.toastr.error('Sorry, no appointment slots available based on the selection criteria. Please reset and search again.');
+    });
+  }
+
+  setMinDate() {
+    let today = new Date();
+    let now = new Date();
+    now.setDate(today.getDate() + 3);
+    if (now.getDay() === 5 || now.getDay() === 6) {
+      now.setDate(today.getDate() + 4);
+    }
+
+    this.minDate = now;
+    this.selectedDate = now;
+    let tx = new Date();
+    tx.setHours(8);
+    tx.setMinutes(0);
+    this.selectedTime = tx;
   }
 }

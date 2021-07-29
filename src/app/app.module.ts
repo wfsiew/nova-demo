@@ -5,6 +5,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { NgxUiLoaderModule, NgxUiLoaderHttpModule, POSITION } from 'ngx-ui-loader';
 
@@ -20,6 +22,7 @@ import { DoctorService } from './services/doctor.service';
 import { HttpTimeoutInterceptor } from './shared/interceptors/timeout.interceptor';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
 import { MakeAppointmentComponent } from './make-appointment/make-appointment.component';
+import { AppointmentSlotComponent } from './appointment-slot/appointment-slot.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { MakeAppointmentComponent } from './make-appointment/make-appointment.co
     HomeComponent,
     IndexComponent,
     DoctorDetailComponent,
-    MakeAppointmentComponent
+    MakeAppointmentComponent,
+    AppointmentSlotComponent
   ],
   imports: [
     BrowserModule,
@@ -38,12 +42,14 @@ import { MakeAppointmentComponent } from './make-appointment/make-appointment.co
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     ModalModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot(),
     PaginationModule.forRoot(),
     NgxUiLoaderModule.forRoot({
       bgsPosition: POSITION.centerCenter,
-      // bgsColor: '#dc143c',
+      bgsColor: '#1B548A',
       bgsType: 'square-jelly-box',
-      // fgsColor: '#dc143c',
+      // fgsColor: '#1B548A',
       fgsType: 'square-jelly-box'
     }),
     NgxUiLoaderHttpModule.forRoot({

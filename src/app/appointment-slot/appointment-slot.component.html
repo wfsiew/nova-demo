@@ -1,0 +1,29 @@
+<div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
+  <div class="container d-flex">
+    <div class="contact-info mr-auto">
+      <h1 class="logo mr-auto"><a href="#"><img src="../../assets/img/logo.png"></a></h1>
+    </div>
+  </div>
+</div>
+
+<section class="d-flex align-items-center main-hd">
+  <div class="container hd">
+    <h1>Our Doctor</h1>
+    <p>Our find a doctor tool assists you in choosing from our diverse pool of health specialists Discover better health and wellness by using our doctor ratings and reviews to make your choice. We are dedicated to being the preferred provider of care, with innovative use of technology, experienced doctors and well-trained staff who collaborate to offer the best diagnosis and treatment plans.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container form-main">
+    <h4 class="title">
+      Available Time Slots
+    </h4>
+
+    <div class="d-flex flex-row flex-wrap pb-2">
+      <div class="p-2 m-2" [ngClass]="{'slot-box-selected': slotNumber === o.slotNumber, 'slot-box': slotNumber !== o.slotNumber}" *ngFor="let o of slots">
+        <input type="radio" name="slot" class="ml-2" [value]="o.slotNumber" [(ngModel)]="slotNumber">
+        <label class="form-check-label ml-2 mr-4 slot-text">{{ o.date }} {{ o.startTime }}</label>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,3 +1,16 @@
+export interface Slot {
+  slotNumber: string;
+  date: string;
+  day: string;
+  startTime: string;
+  endTime: string;
+  doctorName: string;
+  speciality: string;
+  clinic: string;
+  room: string;
+  caseType: string;
+}
+
 export interface Document {
   code: string;
   description: string;

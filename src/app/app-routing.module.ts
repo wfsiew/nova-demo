@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { IndexComponent } from './index/index.component';
 import { DoctorDetailComponent } from './doctor-detail/doctor-detail.component';
 import { MakeAppointmentComponent } from './make-appointment/make-appointment.component';
+import { AppointmentSlotComponent } from './appointment-slot/appointment-slot.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
       {
         path: 'appointment/new',
         component: MakeAppointmentComponent
+      },
+      {
+        path: 'appointment/slots',
+        component: AppointmentSlotComponent
       }
     ]
   },
