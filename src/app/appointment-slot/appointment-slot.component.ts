@@ -83,24 +83,18 @@ export class AppointmentSlotComponent implements OnInit, OnDestroy {
       caseType: this.submitData.caseType
     }
 
-    this.bsModalRef.hide();
+    this.isLoading = true;
+    this.appService.postVesaliusMakeAppointment(1, this.patientPRN, o).subscribe((res: any) => {
+      this.isLoading = false;
+      this.bsModalRef.hide();
       this.bsModalRef = this.modalService.show(
         this.modalAppointmentOK,
         Object.assign({}, { class: 'modal-lg' })
       );
-
-    // this.isLoading = true;
-    // this.appService.postVesaliusMakeAppointment(1, this.patientPRN, o).subscribe((res: any) => {
-    //   this.isLoading = false;
-    //   this.bsModalRef.hide();
-    //   this.bsModalRef = this.modalService.show(
-    //     this.modalAppointmentOK,
-    //     Object.assign({}, { class: 'modal-lg' })
-    //   );
-    // }, (error) => {
-    //   this.isLoading = false;
-    //   this.toastr.error('Unable to create new appointment at the moment. Please check your internet connection or try again later.');
-    // });
+    }, (error) => {
+      this.isLoading = false;
+      this.toastr.error('Unable to create new appointment at the moment. Please check your internet connection or try again later.');
+    });
   }
 
   onHome() {

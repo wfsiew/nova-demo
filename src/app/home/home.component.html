@@ -34,12 +34,14 @@
           <img class="img-fluid rounded-circle doctor-img" [src]="getImage(o)" alt="Card image cap">
         </div>
         
-        <div class="card-body">
+        <div class="card-body d-flex flex-column">
           <h5 class="card-title doctor-name">{{ o.name }}</h5>
           <h6 class="mt-3 doctor-speciality">Speciality</h6>
           <p class="doctor-speciality-text" *ngFor="let s of o.doctorSpecialities">{{ s.specialities }}</p>
-          <button type="button" class="btn btn-light btn-details" (click)="goto(o.mcr)">Doctor Details</button>
-          <button type="button" class="btn btn-light btn-make-appointment" (click)="openNRICModal(o)">Make Appointment</button>
+          <div class="mt-auto">
+            <button type="button" class="btn btn-light btn-details" (click)="goto(o.mcr)">Doctor Details</button>
+            <button type="button" class="btn btn-light btn-make-appointment flex-grow-1" (click)="openNRICModal(o)">Make Appointment</button>
+          </div>
         </div>
       </div>
     </div>
