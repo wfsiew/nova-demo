@@ -1,0 +1,90 @@
+
+<div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
+  <div class="container d-flex">
+    <div class="contact-info mr-auto">
+      <h1 class="logo mr-auto"><a href="#"><img src="../../assets/img/logo.png"></a></h1>
+    </div>
+  </div>
+</div>
+
+<section class="d-flex align-items-center main-hd">
+  <div class="container hd">
+    <h1>Our Doctor</h1>
+    <p>Our find a doctor tool assists you in choosing from our diverse pool of health specialists Discover better health and wellness by using our doctor ratings and reviews to make your choice. We are dedicated to being the preferred provider of care, with innovative use of technology, experienced doctors and well-trained staff who collaborate to offer the best diagnosis and treatment plans.</p>
+  </div>
+</section>
+
+<section>
+  <form [formGroup]="mform">
+    <div class="container form-main">
+      <h4 class="title">
+        Appointment Details
+      </h4>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label class="label">Doctor Name</label>
+          <input type="text" class="form-control" placeholder="Doctor Name" formControlName="doctorName" readonly>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="label">Speciality</label>
+          <input type="text" class="form-control" placeholder="Speciality" formControlName="specialtyName" readonly>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label class="label">Type of Visit&nbsp;<span class="text-danger">*</span></label>
+          <select class="form-control" formControlName="caseType">
+            <option value="NC">New Case</option>
+            <option value="FU">Follow-up</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="line-div mb-4"></div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label class="label">Select Preferred Date&nbsp;<span class="text-danger">*</span></label>
+
+        </div>
+        <div class="form-group col-md-6">
+          <label class="label">Select Preferred Time</label>
+          <input type="text" class="form-control" placeholder="e.g 9:00 AM" formControlName="time">
+        </div>
+      </div>
+
+      <h4 class="title">
+        Patient Details
+      </h4>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label class="label">Patient Name</label>
+          <input type="text" class="form-control" placeholder="Patient Name" formControlName="patientName" readonly>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="label">Patient NRIC</label>
+          <input type="text" class="form-control" placeholder="Patient NRIC" formControlName="patientNRIC" readonly>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label class="label">Date of birth</label>
+          <input type="text" class="form-control" placeholder="e.g 4-Apr-1990" formControlName="patientDOB" readonly>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="label">Patient Registration Number (PRN)</label>
+          <input type="text" class="form-control" placeholder="PRN" formControlName="prn" readonly>
+        </div>
+      </div>
+
+      <div class="text-right">
+        <button type="button" class="btn btn-light btn-cancel mr-2 mb-2" (click)="onBack()">Back</button>
+        <button type="button" class="btn btn-light btn-next mb-2" (click)="onSubmit()">Next</button>
+      </div>
+    </div>
+  </form>
+</section>

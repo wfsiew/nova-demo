@@ -29,21 +29,24 @@
 }
 
 .btn-details {
+  font-family: 'Source Sans Pro';
   background: #1260a0;
   color: #ffffff;
   font-size: 9pt;
 }
 
 .btn-make-appointment {
+  font-family: 'Source Sans Pro';
   background: #eb0323;
   color: #ffffff;
   font-size: 9pt;
 }
 
 .doctor-card {
-  box-shadow: 0px 0px 8px 0px #E7E7E7A6;
   border: none !important;
   min-height: 350px;
+  box-shadow: 0px 0px 8px rgba(231, 231, 231, 0.65);
+  border-radius: 10px;
 }
 
 .doctor-img {
@@ -76,12 +79,45 @@
 }
 
 .doctor-speciality-text {
-  font-family: 'Lato';
+  font-family: "Lato";
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
   letter-spacing: 0px;
   text-align: center;
-  color: #6C757D;
+  color: #6c757d;
+}
+
+.bottom-aligner {
+  display: inline-block;
+  height: 100%;
+  vertical-align: bottom;
+  width: 0px;
+}
+
+.btn-search {
+  font-family: 'Source Sans Pro';
+  background: #eb0323;
+  color: #ffffff;
+  font-size: 9pt;
+  border-color: #1b548a;
+}
+
+.btn-submit {
+  font-family: 'Source Sans Pro';
+  background: #eb0323;
+  color: #ffffff;
+  font-size: 10pt;
+}
+
+.nric-label {
+  font-family: "Lato";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+  letter-spacing: 0.05px;
+  text-align: left;
+  color: #002E50;
 }

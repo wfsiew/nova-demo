@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { AppService } from '../services/app.service';
 import { DoctorService } from 'src/app/services/doctor.service';
 import { MessageService } from 'src/app/services/message.service';
 import { AppConstant } from '../shared/constants/app.constant';
-import { NovaDoctor } from '../shared/models';
+import { NovaDoctor, Patient } from '../shared/models';
 import { Helper } from '../shared/utils/helper';
 
 @Component({
@@ -13,10 +15,12 @@ import { Helper } from '../shared/utils/helper';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   isLoading = false;
   list: NovaDoctor[] = [];
+  doctor!: NovaDoctor;
+  patient!: Patient;
   totalCount = 0;
   totalPage = 0;
   pageSize = AppConstant.PAGE_SIZE;
@@ -26,7 +30,13 @@ export class HomeComponent implements OnInit {
   sortDir = 'asc';
   sx = 0;
   sy = 0;
+  bsModalRef!: BsModalRef;
   subs: Subscription;
+
+  nric = '00-000034';
+
+  @ViewChild('modalNRIC') modalNRIC!: TemplateRef<any>;
+  @ViewChild('modalNRICNotFound') modalNRICNotFound!: TemplateRef<any>;
 
   readonly uiState = 'doctor.doctor-listing';
 
@@ -36,9 +46,11 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private appService: AppService,
     private doctorService: DoctorService,
     private msService: MessageService,
     private toastr: ToastrService,
+    private modalService: BsModalService
   ) {
     this.subs = this.msService.get().subscribe(res => {
       if (res.name === this.uiState) {
@@ -57,9 +69,13 @@ export class HomeComponent implements OnInit {
     this.load();
   }
 
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
+
   load() {
     if (this.search !== '') {
-      this.onSearch(this.search);
+      this.onSearch();
       return;
     }
     
@@ -80,11 +96,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  onSearch(s: string) {
-    this.search = s;
+  onSearch() {
     this.page = 1;
     this.isLoading = true;
-    this.doctorService.search(this.page, AppConstant.PAGE_SIZE, this.sort, this.sortDir, s).subscribe((res: any) => {
+    this.doctorService.search(this.page, AppConstant.PAGE_SIZE, this.sort, this.sortDir, this.search).subscribe((res: any) => {
       this.list = res.body;
       const headers = res.headers;
       this.totalCount = Number(headers.get(AppConstant.HTTP_HEADER.X_TOTAL_COUNT));
@@ -98,6 +113,10 @@ export class HomeComponent implements OnInit {
     }, () => {
       this.isLoading = false;
     });
+  }
+
+  onSearchKeypress(event: any) {
+    this.onSearch();
   }
 
   getImage(o: NovaDoctor) {
@@ -124,5 +143,54 @@ export class HomeComponent implements OnInit {
       sy: window.scrollY
     });
     this.router.navigate([`/main/doctor/${s}`]);
+  }
+
+  openNRICModal(o: NovaDoctor) {
+    this.doctor = o;
+    this.bsModalRef = this.modalService.show(
+      this.modalNRIC,
+      Object.assign({}, { class: 'modal-lg' })
+    );
+  }
+
+  onSubmitNRIC() {
+    this.isLoading = true;
+    this.appService.getVesaliusPatientData(1, this.nric).subscribe((res: any) => {
+      this.isLoading = false;
+      this.bsModalRef.hide();
+      if (!res) {
+        this.onNRICNotFoundModal();
+      }
+
+      else {
+        this.patient = res;
+        this.msService.send('appointment.make-appointment', {
+          page: this.page,
+          sort: this.sort,
+          dir: this.sortDir,
+          search: this.search,
+          sx: window.scrollX,
+          sy: window.scrollY,
+          patient: this.patient,
+          doctor: this.doctor
+        });
+        this.router.navigate([`/main/appointment/new`]);
+      }
+    }, (error) => {
+      this.isLoading = false;
+      this.bsModalRef.hide();
+      this.onNRICNotFoundModal();
+    });
+  }
+
+  onNRICNotFoundModal() {
+    this.bsModalRef = this.modalService.show(
+      this.modalNRICNotFound,
+      Object.assign({}, { class: 'modal-lg' })
+    );
+  }
+
+  onHomeNRIC() {
+    this.bsModalRef.hide();
   }
 }

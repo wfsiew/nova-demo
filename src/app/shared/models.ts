@@ -1,3 +1,52 @@
+export interface Document {
+  code: string;
+  description: string;
+  value: string;
+  expireDate: string;
+}
+
+export interface Address {
+  address1: string;
+  address2: string;
+  address3: string;
+  cityState: string;
+  postalCode: string;
+}
+
+export interface Name {
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  title: string;
+}
+
+export interface ContactNumber {
+  home: string;
+  email: string;
+}
+
+export interface Nationality {
+  code: string;
+  description: string;
+}
+
+export interface Sex {
+  code: string;
+  description: string;
+}
+
+export interface Patient {
+  contactNumber?: ContactNumber;
+  dob: string;
+  homeAddress?: Address;
+  name?: Name;
+  nationality?: Nationality;
+  prn: string;
+  resident: string;
+  sex?: Sex;
+  documents?: Document[];
+}
+
 export interface NovaDoctorSpokenLanguage {
   spokenLanguageId: number;
   doctorId: number;

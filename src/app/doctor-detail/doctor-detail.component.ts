@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DoctorService } from 'src/app/services/doctor.service';
 import { NovaDoctor, NovaDoctorClinicHours, NovaSpecialty } from 'src/app/shared/models';
+import { Helper } from '../shared/utils/helper';
 
 @Component({
   selector: 'app-doctor-detail',
@@ -14,6 +15,8 @@ export class DoctorDetailComponent implements OnInit {
   isLoading = false;
   mcr: any;
   data!: NovaDoctor;
+
+  readonly isEmpty = Helper.isEmpty;
 
   constructor(
     private route: ActivatedRoute,
