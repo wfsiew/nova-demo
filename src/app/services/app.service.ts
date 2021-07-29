@@ -18,4 +18,8 @@ export class AppService {
   getVesaliusNextAvailableSlot(branchId: number, prn: string, o: any) {
     return this.http.post(`${this.baseUrl}/public/vesalius/get-next-available-slots/${branchId}/${prn}`, o);
   }
+
+  postVesaliusMakeAppointment(branchId: number, prn: string, o: any) {
+    return this.http.post(`${this.baseUrl}/public/vesalius/make-appointment/${branchId}/${prn}`, o);
+  }
 }

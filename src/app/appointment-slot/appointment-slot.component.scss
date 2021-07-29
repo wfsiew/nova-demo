@@ -56,3 +56,103 @@
   border: 1px solid #0b7dea;
   border-radius: 4px;
 }
+
+.btn-cancel {
+  font-family: "Source Sans Pro";
+  background: #b1b1b1;
+  color: #ffffff;
+  font-size: 10pt;
+  width: 150px;
+}
+
+.btn-make-appointment {
+  font-family: "Source Sans Pro";
+  background: #eb0323;
+  color: #ffffff;
+  font-size: 10pt;
+  width: 150px;
+}
+
+.hd-title {
+  font-family: "Lato";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px;
+  letter-spacing: 0.05px;
+  color: #002e50;
+}
+
+.btn-continue {
+  font-family: "Source Sans Pro";
+  background: #eb0323;
+  color: #ffffff;
+  font-size: 10pt;
+  width: 150px;
+}
+
+.doctor-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  text-align: center;
+}
+
+.container-info {
+  margin-left: 20px;
+  align-self: center;
+}
+
+.doctor-name {
+  font-family: "Lato";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px;
+  letter-spacing: 0.05px;
+  color: #002e50;
+}
+
+.title-hd {
+  font-family: "Lato";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0px;
+  color: #002e50;
+}
+
+.title-text {
+  font-family: "Lato";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0px;
+  color: #6c757d;
+}
+
+.line-sep {
+  border: 1px solid #ced4da;
+}
+
+.patient-label {
+  font-family: "Lato";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 19px;
+  letter-spacing: 0px;
+  color: #6c757d;
+}
+
+.patient-text {
+  font-family: "Lato";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 19px;
+  letter-spacing: 0px;
+  color: #002e50;
+}

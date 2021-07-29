@@ -14,16 +14,125 @@
 </section>
 
 <section>
-  <div class="container form-main">
-    <h4 class="title">
-      Available Time Slots
-    </h4>
-
-    <div class="d-flex flex-row flex-wrap pb-2">
-      <div class="p-2 m-2" [ngClass]="{'slot-box-selected': slotNumber === o.slotNumber, 'slot-box': slotNumber !== o.slotNumber}" *ngFor="let o of slots">
-        <input type="radio" name="slot" class="ml-2" [value]="o.slotNumber" [(ngModel)]="slotNumber">
-        <label class="form-check-label ml-2 mr-4 slot-text">{{ o.date }} {{ o.startTime }}</label>
+  <div class="container">
+    <div class="form-main p-4">
+      <h4 class="title">
+        Available Time Slots
+      </h4>
+  
+      <div class="d-flex flex-row flex-wrap pb-2">
+        <div class="p-2 m-2" [ngClass]="{'slot-box-selected': slotNumber === o.slotNumber, 'slot-box': slotNumber !== o.slotNumber}" *ngFor="let o of slots">
+          <input type="radio" name="slot" class="ml-2" [value]="o.slotNumber" [(ngModel)]="slotNumber">
+          <label class="form-check-label ml-2 mr-4 slot-text">{{ getDate(o.date) }} {{ getTime(o.startTime) }}</label>
+        </div>
       </div>
+    </div>
+    
+    <div class="text-right mt-2">
+      <button type="button" class="btn btn-light btn-cancel mr-2" (click)="onBack()">Back</button>
+      <button type="submit" class="btn btn-light btn-make-appointment" (click)="onNext()" [disabled]="!slotNumber">Make Appointment</button>
     </div>
   </div>
 </section>
+
+<ng-template #modalConfirmAppointment>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left"></h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="hd-title mb-1">Please check the appointment summary and click on 'Continue'.</div>
+    <div class="d-flex align-items-start">
+      <div>
+        <img [src]="doctorImage" class="img-fluid rounded-circle doctor-img" alt="User Image">
+      </div>
+      <div class="container-info">
+        <h3 class="doctor-name mb-1">{{ doctorName }}</h3>
+
+        <ng-container *ngIf="doctor && !isEmpty(doctor.doctorSpecialities)">
+          <div class="title-text" *ngFor="let s of data.doctorSpecialities">{{ s.specialities }}</div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="line-sep mt-4 mb-4"></div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <div class="patient-label">Patient Name</div>
+      </div>
+      <div class="col-md-2">
+        <div class="patient-label">Patient NRIC</div>
+      </div>
+      <div class="col-md-3">
+        <div class="patient-label">Patient PRN Number</div>
+      </div>
+      <div class="col-md-4">
+        <div class="patient-label">Appointment Date & Time</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">{{ patientName }}</div>
+      <div class="col-md-2">{{ patientNRIC }}</div>
+      <div class="col-md-3">{{ patientPRN }}</div>
+      <div class="col-md-4">{{ appointmentDate }}</div>
+    </div>
+
+    <div class="text-right">
+      <button type="button" class="btn btn-light btn-continue mt-2" (click)="onContinue()">Continue</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modalAppointmentOK>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left"></h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="hd-title mb-1">Your appointment has been made successfully.</div>
+    <div class="d-flex align-items-start">
+      <div>
+        <img [src]="doctorImage" class="img-fluid rounded-circle doctor-img" alt="User Image">
+      </div>
+      <div class="container-info">
+        <h3 class="doctor-name mb-1">{{ doctorName }}</h3>
+
+        <ng-container *ngIf="doctor && !isEmpty(doctor.doctorSpecialities)">
+          <div class="title-text" *ngFor="let s of data.doctorSpecialities">{{ s.specialities }}</div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="line-sep mt-4 mb-4"></div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <div class="patient-label">Patient Name</div>
+      </div>
+      <div class="col-md-2">
+        <div class="patient-label">Patient NRIC</div>
+      </div>
+      <div class="col-md-3">
+        <div class="patient-label">Patient PRN Number</div>
+      </div>
+      <div class="col-md-4">
+        <div class="patient-label">Appointment Date & Time</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">{{ patientName }}</div>
+      <div class="col-md-2">{{ patientNRIC }}</div>
+      <div class="col-md-3">{{ patientPRN }}</div>
+      <div class="col-md-4">{{ appointmentDate }}</div>
+    </div>
+
+    <div class="text-right">
+      <button type="button" class="btn btn-light btn-continue mt-2" (click)="onHome()">Home</button>
+    </div>
+  </div>
+</ng-template>
