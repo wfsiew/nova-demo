@@ -92,7 +92,6 @@ export class DoctorDetailComponent implements OnInit, OnDestroy {
 
       else {
         this.patient = res;
-        console.log(px)
         this.msService.send('appointment.make-appointment', {
           ...this.pState,
           patient: this.patient,
