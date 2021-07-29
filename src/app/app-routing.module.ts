@@ -25,6 +25,10 @@ const routes: Routes = [
         component: MakeAppointmentComponent
       },
       {
+        path: ':mcr/appointment/new',
+        component: MakeAppointmentComponent
+      },
+      {
         path: 'appointment/slots',
         component: AppointmentSlotComponent
       }

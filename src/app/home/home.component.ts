@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   load() {
-    if (this.search !== '') {
+    if (this.search && this.search !== '') {
       this.onSearch();
       return;
     }
@@ -134,7 +134,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   goto(s: string) {
-    this.msService.send(this.uiState, {
+    this.msService.send('doctor.doctor-detail', {
       page: this.page,
       sort: this.sort,
       dir: this.sortDir,

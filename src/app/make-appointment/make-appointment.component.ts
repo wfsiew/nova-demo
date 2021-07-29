@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
@@ -22,17 +22,20 @@ export class MakeAppointmentComponent extends GeneralForm implements OnInit, OnD
 
   isLoading = false;
   pState: any;
+  mcr: any;
   data: any;
   specialty!: NovaDoctorSpecialty | undefined;
   selectedDate!: Date;
   selectedTime!: Date;
   minDate!: Date;
+  fromDetail = false;
   subs: Subscription;
 
   readonly uiState = 'appointment.make-appointment';
 
   constructor(
     private fb: FormBuilder,
+    private route: ActivatedRoute,
     private router: Router,
     private appService: AppService,
     private msService: MessageService,
@@ -41,7 +44,7 @@ export class MakeAppointmentComponent extends GeneralForm implements OnInit, OnD
     private loc: Location
   ) {
     super();
-    this.setMinDate()
+    this.setMinDate();
     this.createForm();
     this.subs = this.msService.get().subscribe(res => {
       if (res.name === this.uiState) {
@@ -53,6 +56,12 @@ export class MakeAppointmentComponent extends GeneralForm implements OnInit, OnD
   }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.mcr = params.get('mcr');
+      if (this.mcr) {
+        this.fromDetail = true;
+      }
+    });
     this.load();
   }
 
@@ -114,8 +123,15 @@ export class MakeAppointmentComponent extends GeneralForm implements OnInit, OnD
   }
 
   onBack() {
-    this.msService.send('doctor.doctor-listing', this.pState);
-    this.router.navigate(['/main/home']);
+    if (!this.fromDetail) {
+      this.msService.send('doctor.doctor-listing', this.pState);
+      this.router.navigate([`/main/home`]);
+    }
+    
+    else {
+      this.msService.send('doctor.doctor-detail', this.pState);
+      this.router.navigate([`/main/doctor/${this.mcr}`]);
+    }
   }
 
   onSubmit() {
@@ -146,8 +162,8 @@ export class MakeAppointmentComponent extends GeneralForm implements OnInit, OnD
 
       else {
         this.msService.send('appointment.appointment-slot', {
+          ...this.pState,
           slots: slots,
-          pState: this.pState,
           submitData: o
         });
         this.router.navigate([`main/appointment/slots`])

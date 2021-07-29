@@ -17,12 +17,12 @@
   <div class="container" *ngIf="!isLoading">
     <div class="d-flex align-items-start">
       <div>
-        <img [src]="getImage()" class="doctor-img img-fluid" alt="User Image">
+        <img [src]="image" class="doctor-img img-fluid" alt="User Image">
       </div>
       <div class="container-info">
         <h3 class="doctor-name mb-4">{{ data.name }}</h3>
         
-        <button type="button" class="btn btn-light btn-make-appointment">Make Appointment</button>
+        <button type="button" class="btn btn-light btn-make-appointment" (click)="openNRICModal()">Make Appointment</button>
 
         <ng-container *ngIf="!isEmpty(data.doctorSpecialities)">
           <div class="title-hd mb-2 mt-4">Specialities</div>
@@ -73,3 +73,36 @@
     </div>
   </div>
 </section>
+
+<ng-template #modalNRIC>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left"></h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="nric-label mb-1">Please key in your NRIC or Patient Registration Number to make appointment</div>
+    <input type="text" class="form-control form-control-sm" [(ngModel)]="nric">
+    <div class="text-right">
+      <button type="button" class="btn btn-light btn-submit mt-2" (click)="onSubmitNRIC()">Submit</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modalNRICNotFound>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left"></h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="nric-label mb-1">Sorry, you have not registered before. Please register at our hospital counter
+      before making any appointment.</div>
+    <input type="text" class="form-control form-control-sm" [(ngModel)]="nric">
+    <div class="text-right">
+      <button type="button" class="btn btn-light btn-submit mt-2" (click)="onHomeNRIC()">Close</button>
+    </div>
+  </div>
+</ng-template>
