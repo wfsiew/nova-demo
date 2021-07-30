@@ -59,7 +59,11 @@
           </div>
           <div class="form-group col-md-6">
             <label class="label">Select Preferred Time</label>
-            <timepicker [(ngModel)]="selectedTime" [mousewheel]="true" [ngModelOptions]="{standalone: true}"></timepicker>
+            <timepicker [(ngModel)]="selectedTime" 
+              [mousewheel]="true" 
+              [hoursPlaceholder]="'hh'"
+              [minutesPlaceholder]="'mm'"
+              [ngModelOptions]="{standalone: true}"></timepicker>
           </div>
         </div>
   

@@ -141,7 +141,7 @@ export class MakeAppointmentComponent extends GeneralForm implements OnInit, OnD
     }
 
     let dt = moment(this.selectedDate).format('DD-MMM-YYYY');
-    let dx = moment(this.selectedTime).format('HH:mm');
+    let dx = this.selectedTime ? moment(this.selectedTime).format('HH:mm') : '00:01';
 
     const f = this.mform.value;
     const o: any = {
@@ -185,7 +185,7 @@ export class MakeAppointmentComponent extends GeneralForm implements OnInit, OnD
     this.minDate = now;
     this.selectedDate = now;
     let tx = new Date();
-    tx.setHours(8);
+    tx.setHours(0);
     tx.setMinutes(0);
     this.selectedTime = tx;
   }
