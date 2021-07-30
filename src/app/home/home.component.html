@@ -28,7 +28,7 @@
       <h2>Doctors</h2>
     </div>
 
-    <div class="d-flex flex-row flex-wrap">
+    <div class="d-flex flex-row flex-wrap justify-content-center" *ngIf="!isEmpty(list) && !isLoading">
       <div class="card text-center doctor-card mb-2 ml-2 mr-2" *ngFor="let o of list">
         <div class="text-center mt-4">
           <img class="img-fluid rounded-circle doctor-img" [src]="getImage(o)" alt="Card image cap">
@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <div *ngIf="totalCount" [ngClass]="{'d-none': isLoading}">
+    <div *ngIf="totalCount" [hidden]="isLoading">
       <div class="float-left pg-label">
         Page {{ page }} / {{ totalPage }} of {{ totalCount }} record(s)
       </div>
