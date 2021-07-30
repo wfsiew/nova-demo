@@ -185,7 +185,7 @@ export class MakeAppointmentComponent extends GeneralForm implements OnInit, OnD
     this.minDate = now;
     this.selectedDate = now;
     let tx = new Date();
-    tx.setHours(0);
+    tx.setHours(6);
     tx.setMinutes(0);
     this.selectedTime = tx;
   }
