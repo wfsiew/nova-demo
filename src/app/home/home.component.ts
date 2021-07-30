@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AppService } from '../services/app.service';
-import { DoctorService } from 'src/app/services/doctor.service';
 import { MessageService } from 'src/app/services/message.service';
 import { AppConstant } from '../shared/constants/app.constant';
 import { NovaDoctor, Patient } from '../shared/models';
@@ -47,7 +46,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private appService: AppService,
-    private doctorService: DoctorService,
     private msService: MessageService,
     private toastr: ToastrService,
     private modalService: BsModalService
@@ -80,7 +78,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     
     this.isLoading = true;
-    this.doctorService.list(this.page, AppConstant.PAGE_SIZE, this.sort, this.sortDir).subscribe((res: any) => {
+    this.appService.listDoctor(this.page, AppConstant.PAGE_SIZE, this.sort, this.sortDir).subscribe((res: any) => {
       this.list = res.body;
       const headers = res.headers;
       this.totalCount = Number(headers.get(AppConstant.HTTP_HEADER.X_TOTAL_COUNT));
@@ -99,7 +97,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   onSearch() {
     this.page = 1;
     this.isLoading = true;
-    this.doctorService.search(this.page, AppConstant.PAGE_SIZE, this.sort, this.sortDir, this.search).subscribe((res: any) => {
+    this.appService.searchDoctor(this.page, AppConstant.PAGE_SIZE, this.sort, this.sortDir, this.search).subscribe((res: any) => {
       this.list = res.body;
       const headers = res.headers;
       this.totalCount = Number(headers.get(AppConstant.HTTP_HEADER.X_TOTAL_COUNT));

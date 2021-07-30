@@ -1,10 +1,8 @@
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AppService } from '../services/app.service';
-import { DoctorService } from 'src/app/services/doctor.service';
 import { MessageService } from 'src/app/services/message.service';
 import { NovaDoctor, NovaDoctorClinicHours, NovaSpecialty, Patient } from 'src/app/shared/models';
 import { Helper } from '../shared/utils/helper';
@@ -37,9 +35,7 @@ export class DoctorDetailComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private appService: AppService,
-    private doctorService: DoctorService,
     private msService: MessageService,
-    private toastr: ToastrService,
     private modalService: BsModalService
   ) {
     this.subs = this.msService.get().subscribe(res => {
@@ -63,7 +59,7 @@ export class DoctorDetailComponent implements OnInit, OnDestroy {
 
   load() {
     this.isLoading = true;
-    this.doctorService.getDoctorDetails(1, this.mcr).subscribe((res: any) => {
+    this.appService.getDoctorDetails(1, this.mcr).subscribe((res: any) => {
       if (res && res.length > 0) {
         this.data = res[0];
       }
@@ -72,6 +68,11 @@ export class DoctorDetailComponent implements OnInit, OnDestroy {
     }, () => {
       this.isLoading = false;
     });
+  }
+
+  onBack() {
+    this.msService.send('doctor.doctor-listing', this.pState);
+    this.router.navigate([`/main/home`]);
   }
 
   openNRICModal() {

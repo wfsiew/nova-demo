@@ -18,7 +18,6 @@ import { DoctorDetailComponent } from './doctor-detail/doctor-detail.component';
 
 import { MessageService } from './services/message.service';
 import { AppService } from './services/app.service';
-import { DoctorService } from './services/doctor.service';
 import { HttpTimeoutInterceptor } from './shared/interceptors/timeout.interceptor';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
 import { MakeAppointmentComponent } from './make-appointment/make-appointment.component';
@@ -60,7 +59,6 @@ import { AppointmentSlotComponent } from './appointment-slot/appointment-slot.co
   providers: [
     MessageService,
     AppService,
-    DoctorService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
