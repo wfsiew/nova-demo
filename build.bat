@@ -1,1 +1,1 @@
-.
+ng build --prod --base-href https://wfsiew.github.io/nova-demo/ --output-path docs
